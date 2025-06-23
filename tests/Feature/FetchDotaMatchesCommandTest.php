@@ -15,7 +15,7 @@ test('command reads player id from config and dispatches jobs', function () {
     // Mock the HTTP response for the totals endpoint
     Http::fake([
         'api.opendota.com/api/players/12345678/totals' => Http::response([
-            ['field' => 'n', 'sum' => 250],
+            ['n' => 250],
         ], 200),
     ]);
 

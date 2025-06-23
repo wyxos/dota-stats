@@ -29,8 +29,7 @@ class FetchDotaMatches extends Command
     public function handle()
     {
         // Get player ID from config.json
-        $configPath = Storage::path('../config.json');
-        $config = json_decode(file_get_contents($configPath), true);
+        $config = json_decode(Storage::get('config.json'), true);
         $playerId = $config['playerId'];
 
         $this->info("Fetching matches for player ID: $playerId");
@@ -46,7 +45,10 @@ class FetchDotaMatches extends Command
         // Find the total matches from the response
         $totalMatches = 0;
 
-        $totalMatches = $response->json()[0]['n'];
+        $responseData = $response->json();
+        if (!empty($responseData) && isset($responseData[0]['n'])) {
+            $totalMatches = $responseData[0]['n'];
+        }
 
         if ($totalMatches === 0) {
             $this->error('Could not determine total matches count');
@@ -70,7 +72,7 @@ class FetchDotaMatches extends Command
 
             // Dispatch job with delay
             FetchDotaMatchesJob::dispatch($playerId, $offset, $limit)
-                ->delay(now()->addSeconds($i * 10));
+                ->delay(now()->addSeconds($i * 30));
 
             $bar->advance();
         }

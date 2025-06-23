@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DotaMatch extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -28,6 +30,8 @@ class DotaMatch extends Model
         'leaver_status',
         'party_size',
         'hero_variant',
+        'details',
+        'is_parsed',
     ];
 
     /**
@@ -39,5 +43,7 @@ class DotaMatch extends Model
         'radiant_win' => 'boolean',
         'party_size' => 'integer',
         'version' => 'string',
+        'details' => 'array',
+        'is_parsed' => 'boolean',
     ];
 }
