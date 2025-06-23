@@ -1,0 +1,5 @@
+- Use Laravel 12 conventions. If unsure, refer to online sources or the official Laravel documentation.
+- generate files using php artisan command where applicable.
+- Write tests using Pest framework.
+- Write a test after each task to ensure the feature works as expected.
+- Run php artisan test after each task to ensure all tests pass.
